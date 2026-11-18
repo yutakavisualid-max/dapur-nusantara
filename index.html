@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Dapur Nusantara - Cita Rasa Autentik Setiap Hari</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .chat-animate { animation: slideUp 0.25s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-amber-50/30 text-zinc-950 antialiased">
+
+    <!-- =====================================================================
+         PENGATURAN UTAMA TEMPLATE KULINER (Ubah sesuai data klien)
+         ===================================================================== -->
+    <script>
+        const SITE_CONFIG = {
+            brandName: "Dapur Nusantara",
+            tagline: "Cita Rasa Autentik & Nikmat di Setiap Gigitan",
+            subTagline: "Menyediakan hidangan pilihan dengan resep turun-temurun, bahan segar berkualitas, dan higienis siap memanjakan lidah Anda.",
+            whatsappNumber: "6281234567890", // Format 628xxx
+            whatsappDefaultMsg: "Halo Dapur Nusantara, saya ingin memesan menu makanan hari ini.",
+            address: "Jl. Margonda Raya No. 88, Depok",
+            googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.25123456789!2d106.827!3d-6.355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMjEnMTguMCJTIDEwNsKwNDknMzcuMiJF!5e0!3m2!1sid!2sid!4v1600000000000!5m2!1sid!2sid",
+            
+            // KATALOG MENU KULINER
+            menus: [
+                { id: 1, name: "Nasi Goreng Spesial Rempah", category: "Makanan Utama", price: "Rp 25.000", tag: "Best Seller", image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=600&q=80", desc: "Nasi goreng dengan bumbu rempah rahasia, suwiran ayam kampung, dan telur." },
+                { id: 2, name: "Mie Ayam Jamur Bangka", category: "Makanan Utama", price: "Rp 22.000", tag: "Favorit", image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80", desc: "Mie kenyal dengan topping ayam jamur gurih dan kuah kaldu istimewa." },
+                { id: 3, name: "Es Teh Manis Melati Segar", category: "Minuman", price: "Rp 6.000", tag: "Segar", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80", desc: "Teh pilihan beraroma melati disajikan dingin menyegarkan." },
+                { id: 4, name: "Juice Alpukat Kerok", category: "Minuman", price: "Rp 18.000", tag: "Best Seller", image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80", desc: "Jus alpukat murni kental dengan tambahan susu cokelat lezat." },
+                { id: 5, name: "Pisang Goreng Crispy Keju", category: "Cemilan", price: "Rp 15.000", tag: "Snack", image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80", desc: "Pisang manis berbalut tepung renyah dengan taburan keju melimpah." },
+                { id: 6, name: "Paket Hemat Ramesan", category: "Paket Promo", price: "Rp 30.000", tag: "Hemat", image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80", desc: "Nasi + Ayam Goreng Lengkuas + Sayur Asem + Es Teh Manis." }
+            ],
+
+            // PENGATURAN CHATBOT KULINER
+            botName: "Asisten Dapur Nusantara",
+            botWelcome: "Halo! 👋 Selamat datang di Dapur Nusantara. Mau pesan menu apa hari ini atau ada yang ingin ditanyakan?",
+            botQuickReplies: ["Rekomendasi Menu Favorit", "Jam Buka & Lokasi", "Info Ongkir / Pesan Antar", "Menu Paket Hemat"],
+            botKnowledgeBase: [
+                {
+                    keywords: ["rekomendasi", "favorit", "enak", "terlaris"],
+                    answer: "Menu paling favorit di sini adalah Nasi Goreng Spesial Rempah dan Mie Ayam Jamur Bangka! Dijamin nagih."
+                },
+                {
+                    keywords: ["jam", "buka", "tutup", "operasional"],
+                    answer: "Kami buka setiap hari mulai pukul 10.00 pagi hingga 21.00 malam WIB."
+                },
+                {
+                    keywords: ["ongkir", "antar", "pesan", "delivery", "kirim"],
+                    answer: "Untuk pengantaran, Anda bisa pesan langsung via WhatsApp atau kunjungi outlet kami terdekat!"
+                },
+                {
+                    keywords: ["lokasi", "alamat", "toko", "cabang"],
+                    answer: "Lokasi dapur utama kami berada di Jl. Margonda Raya No. 88, Depok. Silakan mampir!"
+                }
+            ]
+        };
+    </script>
+
+    <!-- NAVBAR DENGAN FLASH LAMP (TITIK NYALA HALUS) -->
+    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-amber-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand & Flash Lamp -->
+                <div class="flex items-center gap-2.5">
+                    <span id="nav-brand" class="font-extrabold text-xl tracking-wider uppercase text-amber-900">Dapur Nusantara</span>
+                    <!-- Flash Lamp / Indikator Aktif Smooth -->
+                    <span class="relative flex h-2.5 w-2.5" title="Dapur Buka & Siap Melayani">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-zinc-600">
+                    <a href="#menu" class="hover:text-amber-900 transition">Daftar Menu</a>
+                    <a href="#tentang" class="hover:text-amber-900 transition">Tentang Kami</a>
+                    <a href="#lokasi" class="hover:text-amber-900 transition">Lokasi & Kontak</a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a id="nav-cta" href="#" target="_blank" class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-4 py-2.5 rounded-full shadow-sm transition">
+                        <i data-lucide="phone-call" class="w-4 h-4"></i>
+                        <span>Pesan Cepat</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-amber-100/50 to-amber-50/30 py-24 sm:py-32">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block text-xs font-bold uppercase tracking-widest text-amber-800 bg-amber-200/60 px-3.5 py-1.5 rounded-full mb-4">Nikmat & Halal</span>
+            <h1 id="hero-title" class="text-4xl sm:text-6xl font-extrabold text-zinc-900 tracking-tight max-w-3xl mx-auto leading-tight">
+                Cita Rasa Autentik & Nikmat di Setiap Gigitan
+            </h1>
+            <p id="hero-subtitle" class="mt-6 text-base sm:text-lg text-zinc-600 max-w-2xl mx-auto leading-relaxed">
+                Menyediakan hidangan pilihan dengan resep turun-temurun, bahan segar berkualitas, dan higienis siap memanjakan lidah Anda.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#menu" class="inline-flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold px-8 py-4 rounded-xl shadow-md transition">
+                    <span>Lihat Daftar Menu</span>
+                    <i data-lucide="utensils" class="w-4 h-4"></i>
+                </a>
+                <button onclick="toggleChat(true)" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-amber-50 text-zinc-800 border border-amber-200 font-semibold px-8 py-4 rounded-xl shadow-sm transition">
+                    <i data-lucide="bot" class="w-4 h-4 text-amber-700"></i>
+                    <span>Tanya Menu Favorit</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- KATALOG MENU SECTION -->
+    <section id="menu" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-12 gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-zinc-900">Menu Pilihan Hari Ini</h2>
+                    <p class="text-sm text-zinc-500 mt-1">Pilih menu favoritmu dan pesan langsung via WhatsApp.</p>
+                </div>
+                <!-- Filter Kategori Menu -->
+                <div id="category-filters" class="flex flex-wrap gap-2">
+                    <button onclick="renderMenus('Semua')" id="btn-semua" class="filter-btn active text-xs font-semibold px-4 py-2 rounded-full bg-amber-600 text-white transition">Semua</button>
+                </div>
+            </div>
+
+            <!-- Grid Menu -->
+            <div id="menu-grid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- TENTANG KAMI -->
+    <section id="tentang" class="py-20 bg-amber-50/40 border-t border-amber-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-zinc-900 mb-4">Mengapa Pesan di Sini?</h2>
+            <p class="text-zinc-600 leading-relaxed max-w-2xl mx-auto mb-12 text-sm sm:text-base">Kami mengutamakan kebersihan dapur, kualitas bahan baku segar setiap hari, serta rasa yang lezat konsisten.</p>
+            <div class="grid sm:grid-cols-3 gap-6 text-left">
+                <div class="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
+                    <i data-lucide="check-circle-2" class="w-8 h-8 text-amber-600 mb-3"></i>
+                    <h4 class="font-bold text-zinc-900 text-sm">Bahan Segar Pilihan</h4>
+                    <p class="text-xs text-zinc-500 mt-1">Belanja bahan langsung dari pasar lokal setiap pagi.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-amber-600 mb-3"></i>
+                    <h4 class="font-bold text-zinc-900 text-sm">Higienis & Sehat</h4>
+                    <p class="text-xs text-zinc-500 mt-1">Dimasak dengan standar kebersihan tinggi dan tanpa bahan pengawet.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
+                    <i data-lucide="bike" class="w-8 h-8 text-amber-600 mb-3"></i>
+                    <h4 class="font-bold text-zinc-900 text-sm">Respon Cepat</h4>
+                    <p class="text-xs text-zinc-500 mt-1">Pesanan langsung diproses begitu konfirmasi masuk.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GOOGLE MAPS & LOKASI -->
+    <section id="lokasi" class="py-20 bg-white border-t border-amber-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-zinc-900">Lokasi & Jam Operasional</h2>
+                <p class="mt-2 text-sm text-zinc-500">Kunjungi kedai kami atau pesan langsung untuk diantar ke rumah.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <div class="bg-amber-50/50 p-6 rounded-2xl border border-amber-100 space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-amber-200/60 flex items-center justify-center flex-shrink-0"><i data-lucide="map-pin" class="w-5 h-5 text-amber-800"></i></div>
+                        <div>
+                            <h4 class="font-bold text-zinc-900 text-sm">Alamat Kedai</h4>
+                            <p id="info-address" class="text-xs text-zinc-600 mt-1 leading-relaxed">Jl. Margonda Raya No. 88, Depok</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-amber-200/60 flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-5 h-5 text-amber-800"></i></div>
+                        <div>
+                            <h4 class="font-bold text-zinc-900 text-sm">Jam Buka</h4>
+                            <p class="text-xs text-zinc-600 mt-1">Setiap Hari: 10.00 - 21.00 WIB</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-2 h-72 sm:h-80 rounded-2xl overflow-hidden border border-amber-200 shadow-sm">
+                    <iframe id="google-map-iframe" src="" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-900 text-zinc-400 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <span id="footer-brand" class="font-bold text-lg text-white uppercase tracking-wider">Dapur Nusantara</span>
+                <p id="footer-address" class="text-xs text-zinc-400 mt-1">Jl. Margonda Raya No. 88, Depok</p>
+            </div>
+            <div class="text-xs text-zinc-500">
+                &copy; <span id="year"></span> <span id="footer-copy">Dapur Nusantara</span>. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WIDGET CHATBOT Kuliner MELAYANG -->
+    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+        <div id="chat-window" class="hidden mb-3 w-[340px] sm:w-[370px] bg-white rounded-2xl shadow-2xl border border-amber-200 overflow-hidden flex-col chat-animate">
+            <div class="bg-amber-600 text-white px-4 py-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center"><i data-lucide="bot" class="w-4 h-4"></i></div>
+                    <div>
+                        <h4 id="chat-bot-name" class="font-bold text-xs leading-tight">Asisten Dapur Nusantara</h4>
+                        <span class="text-[10px] text-amber-100 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-300 inline-block"></span> Siap Melayani</span>
+                    </div>
+                </div>
+                <button onclick="toggleChat(false)" class="p-1.5 rounded-lg hover:bg-white/10 transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            <div id="chat-messages" class="p-4 h-72 overflow-y-auto space-y-3 bg-zinc-50 text-xs sm:text-sm"></div>
+            <div id="chat-quick-replies" class="px-3 py-2 bg-white border-t border-amber-100 flex gap-1.5 overflow-x-auto"></div>
+            <form onsubmit="handleChatSubmit(event)" class="p-2.5 bg-white border-t border-amber-200 flex items-center gap-2">
+                <input type="text" id="chat-input" placeholder="Tanya menu atau jam buka..." autocomplete="off" class="flex-1 text-xs sm:text-sm px-3.5 py-2 rounded-xl bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-600">
+                <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white p-2.5 rounded-xl transition"><i data-lucide="send" class="w-4 h-4"></i></button>
+            </form>
+        </div>
+        <button onclick="toggleChat()" class="flex items-center gap-2.5 bg-amber-600 hover:bg-amber-700 text-white px-4 py-3.5 rounded-full shadow-lg transition-all hover:scale-105">
+            <i data-lucide="message-square-text" class="w-5 h-5"></i>
+            <span class="text-xs sm:text-sm font-semibold pr-1">Tanya Menu</span>
+        </button>
+    </div>
+
+    <!-- LOGIKA JAVASCRIPT KULINER -->
+    <script>
+        lucide.createIcons();
+
+        document.getElementById('page-title').textContent = `${SITE_CONFIG.brandName} - ${SITE_CONFIG.tagline}`;
+        document.getElementById('nav-brand').textContent = SITE_CONFIG.brandName;
+        document.getElementById('hero-title').textContent = SITE_CONFIG.tagline;
+        document.getElementById('hero-subtitle').textContent = SITE_CONFIG.subTagline;
+        document.getElementById('footer-brand').textContent = SITE_CONFIG.brandName;
+        document.getElementById('footer-copy').textContent = SITE_CONFIG.brandName;
+        document.getElementById('footer-address').textContent = SITE_CONFIG.address;
+        document.getElementById('info-address').textContent = SITE_CONFIG.address;
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.getElementById('chat-bot-name').textContent = SITE_CONFIG.botName;
+        document.getElementById('google-map-iframe').src = SITE_CONFIG.googleMapsEmbedUrl;
+
+        const waBaseUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=`;
+        document.getElementById('nav-cta').href = waBaseUrl + encodeURIComponent(SITE_CONFIG.whatsappDefaultMsg);
+
+        // Render Menu & Filter
+        function renderMenus(filter = 'Semua') {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = '';
+            
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.className = 'filter-btn text-xs font-semibold px-4 py-2 rounded-full bg-amber-100 text-amber-900 hover:bg-amber-200 transition';
+            });
+            
+            if (filter === 'Semua') {
+                document.getElementById('btn-semua').className = 'filter-btn active text-xs font-semibold px-4 py-2 rounded-full bg-amber-600 text-white transition';
+            } else {
+                event && event.target && (event.target.className = 'filter-btn active text-xs font-semibold px-4 py-2 rounded-full bg-amber-600 text-white transition');
+            }
+
+            const filtered = filter === 'Semua' 
+                ? SITE_CONFIG.menus 
+                : SITE_CONFIG.menus.filter(m => m.category === filter);
+
+            filtered.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-2xl overflow-hidden border border-amber-100 shadow-sm hover:shadow-md transition group flex flex-col justify-between';
+                
+                const waMenuMsg = `Halo ${SITE_CONFIG.brandName}, saya ingin memesan menu:\n\n*${m.name}* (${m.category})\nHarga: ${m.price}\n\nMohon informasi ketersediaannya ya!`;
+
+                card.innerHTML = `
+                    <div>
+                        <div class="h-56 overflow-hidden bg-amber-50 relative">
+                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-amber-900 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">${m.tag}</span>
+                            <img src="${m.image}" alt="${m.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-5">
+                            <span class="text-[11px] font-semibold text-amber-700 uppercase tracking-wider">${m.category}</span>
+                            <h3 class="font-bold text-zinc-900 mt-1 text-base">${m.name}</h3>
+                            <p class="text-xs text-zinc-500 mt-1.5 leading-relaxed">${m.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 flex items-center justify-between mt-4">
+                        <span class="font-extrabold text-amber-900 text-base">${m.price}</span>
+                        <a href="${waBaseUrl + encodeURIComponent(waMenuMsg)}" target="_blank" class="inline-flex items-center gap-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold px-3.5 py-2.5 rounded-xl transition">
+                            <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
+                            <span>Pesan WA</span>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Setup Kategori Filter Dinamis Kuliner
+        const categories = [...new Set(SITE_CONFIG.menus.map(m => m.category))];
+        const filterContainer = document.getElementById('category-filters');
+        categories.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'filter-btn text-xs font-semibold px-4 py-2 rounded-full bg-amber-100 text-amber-900 hover:bg-amber-200 transition';
+            btn.textContent = cat;
+            btn.onclick = () => renderMenus(cat);
+            filterContainer.appendChild(btn);
+        });
+        renderMenus('Semua');
+
+        // Chatbot Logic Kuliner (Clear saat ditutup)
+        const chatWindow = document.getElementById('chat-window');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatQuickReplies = document.getElementById('chat-quick-replies');
+        const chatInput = document.getElementById('chat-input');
+        let isChatInitialized = false;
+
+        function toggleChat(forceState) {
+            const isHidden = chatWindow.classList.contains('hidden');
+            const shouldOpen = forceState !== undefined ? forceState : isHidden;
+            if (shouldOpen) {
+                chatWindow.classList.remove('hidden');
+                chatWindow.classList.add('flex');
+                if (!isChatInitialized) { initChat(); isChatInitialized = true; }
+                chatInput.focus();
+            } else {
+                chatWindow.classList.add('hidden');
+                chatWindow.classList.remove('flex');
+                chatMessages.innerHTML = '';
+                chatQuickReplies.innerHTML = '';
+                isChatInitialized = false;
+            }
+        }
+
+        function initChat() {
+            appendMessage('bot', SITE_CONFIG.botWelcome);
+            SITE_CONFIG.botQuickReplies.forEach(text => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'whitespace-nowrap text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-100 text-amber-900 hover:bg-amber-200 transition';
+                btn.textContent = text;
+                btn.onclick = () => processUserMessage(text);
+                chatQuickReplies.appendChild(btn);
+            });
+        }
+
+        function appendMessage(sender, text, includeWa = false) {
+            const wrapper = document.createElement('div');
+            wrapper.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
+            const bubble = document.createElement('div');
+            bubble.className = sender === 'user' ? 'bg-amber-600 text-white px-3.5 py-2.5 rounded-2xl rounded-br-sm max-w-[82%] whitespace-pre-line shadow-sm' : 'bg-amber-50 text-zinc-800 px-3.5 py-2.5 rounded-2xl rounded-bl-sm max-w-[85%] whitespace-pre-line border border-amber-200/60 shadow-sm';
+            bubble.textContent = text;
+            if (includeWa) {
+                const waBtn = document.createElement('a');
+                waBtn.href = waBaseUrl + encodeURIComponent("Halo admin, saya ingin bertanya lebih lanjut mengenai menu kuliner.");
+                waBtn.target = '_blank';
+                waBtn.className = 'mt-2 inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-lg transition w-full';
+                waBtn.textContent = 'Hubungi Admin via WhatsApp';
+                bubble.appendChild(document.createElement('br'));
+                bubble.appendChild(waBtn);
+            }
+            wrapper.appendChild(bubble);
+            chatMessages.appendChild(wrapper);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const text = chatInput.value.trim();
+            if (!text) return;
+            chatInput.value = '';
+            processUserMessage(text);
+        }
+
+        function processUserMessage(userText) {
+            appendMessage('user', userText);
+            setTimeout(() => {
+                const query = userText.toLowerCase();
+                let found = SITE_CONFIG.botKnowledgeBase.find(item => item.keywords.some(k => query.includes(k)));
+                if (found) {
+                    appendMessage('bot', found.answer);
+                } else {
+                    appendMessage('bot', "Untuk informasi menu khusus atau pemesanan skala besar, silakan hubungi admin kami:", true);
+                }
+            }, 300);
+        }
+    </script>
+</body>
+</html>
